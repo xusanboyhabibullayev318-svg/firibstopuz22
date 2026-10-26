@@ -1,0 +1,23 @@
+{
+  "name": "firibstop-uz-offline-shield",
+  "version": "2.7.9",
+  "private": true,
+  "description": "FiribStop UZ — security-focused offline-first PWA with file signature checks and animated interface",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test tests/*.test.js",
+    "lint:check": "node -e \"require('fs').accessSync('server.js'); console.log('OK')\""
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "cybersecurity",
+    "uzbekistan",
+    "phishing",
+    "pwa",
+    "offline",
+    "digital-hygiene"
+  ],
+  "license": "MIT"
+}

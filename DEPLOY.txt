@@ -1,0 +1,74 @@
+FiribStop UZ 2.7.9 — fix Netlify RSS/news API
+
+NETLIFY (важно для текущего сайта):
+1. Загрузите всё содержимое папки проекта в тот GitHub-репозиторий, который подключён к Netlify.
+2. Дождитесь Deploy published.
+3. ОБЯЗАТЕЛЬНО отключите пароль сайта: Site configuration → Access control → Visitor access / Password protection → Off.
+   Иначе /api/health и /api/news отдают HTML-страницу входа (HTTP 401), а лента новостей не работает.
+4. Откройте https://ВАШ-САЙТ.netlify.app/api/health — должен появиться JSON с ok: true (не Login Redirect).
+5. Откройте https://ВАШ-САЙТ.netlify.app/api/news — должен появиться JSON с items и sources.
+6. Вернитесь в FiribStop и нажмите Ctrl+Shift+R.
+
+Теперь Netlify Functions обслуживают /api/news и /api/health; для новостей не нужен отдельный Render-сервер и не требуется токен. Каждый RSS-источник может временно быть недоступен, состояние показывается в sources.
+
+RSS (актуально): UZCERT, SecurityLab, Securelist, Kaspersky blog, Anti-Malware.ru.
+Старые PT и BI.ZONE RSS больше не отвечают — заменены.
+
+
+Render:
+- Runtime: Node
+- Build command: npm install
+- Start command: npm start
+- Health check: /api/health
+
+После обновления:
+1. Загрузите содержимое проекта в репозиторий GitHub.
+2. Дождитесь успешного деплоя Render.
+3. Откройте сайт и нажмите Ctrl+Shift+R.
+4. Проверьте переключение светлой/тёмной темы и мобильную навигацию.
+5. Откройте «Официальный мониторинг UZCERT» и нажмите «Открыть LIVE-карту кибератак».
+   Официальная карта открывается в новой вкладке; встроенный iframe и схематическая карта
+   не используются для имитации live-данных.
+6. Проверьте индикатор «Онлайн / Офлайн» в верхней панели.
+
+Service Worker: v39.
+Свежие новости и картографическая подложка требуют интернет.
+
+Security: wildcard CORS removed; for separately hosted frontends set CORS_ORIGINS to an explicit comma-separated allowlist.
+
+Для онлайн-проверки URL через URLhaus нужен API-ключ. Локальный режим работает без него. Добавьте URLHAUS_AUTH_KEY в Environment Variables хостинга, не в код/репозиторий. Внешняя проверка отправляет выбранный адрес URLhaus.
+
+
+2.7.1 showcase update: explainable message scan, themed/time filters for threat-news map, extended training scenarios, redacted report export (print-to-PDF/TXT). Service Worker cache v28.
+
+Map fix 2.7.1: disabled external raster tiles that can return “Access blocked”. Regions are drawn as local vectors.
+
+2.7.3 feed fix: clearer diagnostics for file:// and unreachable API, cached feed recovery, no fabricated news, API timeout/JSON validation. Service Worker cache v30.
+
+2.7.3 map fix: /api/regions now falls back to bundled local regional cartogram if external GeoJSON is unavailable; browser has an embedded fallback, with clear notice that the schematic is not exact boundaries. Service Worker cache v30.
+
+
+2.7.4: Added UZCERT official live cyber-threat map and trends dashboard to the navigation. The external map may be blocked inside an iframe by the source website; direct primary-source buttons remain available. Official data is not replaced by synthetic attack counts. Service Worker cache v31.
+
+2.7.9 fix: Removed the blank cross-origin UZCERT iframe and retired the schematic regional map from the threat-map screen. Both former navigation entries now resolve to a single official-source hub with direct links to the UZCERT live map and trends, clear provenance, and no fabricated counters. Service Worker cache v34.
+
+=== REAL THREAT RADAR (2.7.9) ===
+
+The global radar uses Cloudflare Radar API. It does not generate fake attacks or fake counters.
+
+For Netlify:
+1. In Cloudflare, create an API token with Account -> Radar -> Read permission.
+2. In Netlify, open Site configuration -> Environment variables.
+3. Add CLOUDFLARE_RADAR_API_TOKEN with the token value.
+4. Trigger a new deploy. Never put this token in app.js, index.html, or a public repository.
+5. Open /api/radar-data to inspect the JSON response; status should be "ok" or "partial".
+
+Optional: own-site firewall events require a domain proxied by Cloudflare, plus CLOUDFLARE_ZONE_ID and CLOUDFLARE_ZONE_API_TOKEN with the appropriate read permission. A *.netlify.app subdomain alone cannot provide Cloudflare zone firewall events.
+
+The Radar page shows aggregate network-layer attack statistics for the last 24 hours, refreshed approximately every 5 minutes. It is not a packet-by-packet feed, does not prove attacks against Uzbekistan, and cannot provide telemetry for networks Cloudflare does not observe. Until the API token is configured, the page explicitly shows that data is not configured and does not fabricate values.
+
+Node hosting (e.g. Render) uses the same CLOUDFLARE_RADAR_API_TOKEN environment variable. Netlify deploys the serverless functions in netlify/functions.
+
+
+CYBER MAP (v2.7.9)
+The global cyber map is embedded from https://cyberattackmap.net/embed.php?autoplay=1. No API token or server function is required for the map. Keep the visible attribution link to CyberAttackMap.net. This is global aggregated third-party telemetry, not confirmed attacks against Uzbekistan or FiribStop.

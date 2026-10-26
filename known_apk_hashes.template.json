@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "description": "Пользовательская локальная база SHA-256 APK. Добавляйте только хеши из проверенных источников.",
+  "source": "official-or-curated-source-name",
+  "updatedAt": "2026-10-22",
+  "hashes": [
+    {
+      "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "label": "Example threat label",
+      "source": "https://trusted.example/source"
+    }
+  ]
+}

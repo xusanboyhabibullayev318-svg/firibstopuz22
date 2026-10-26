@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>FiribStop UZ — Offline Shield 2.7.9 · No-API CyberAttackMap</title>
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="FiribStop UZ — офлайн-защита от цифрового мошенничества. Проверка сообщений, ссылок, карта киберугроз Узбекистана и обучение цифровой безопасности.">
+  <meta name="keywords" content="кибербезопасность, фишинг, мошенничество, Узбекистан, offline shield, digital hygiene">
+  <meta name="author" content="FiribStop Community">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="./">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="runtime.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+  <aside class="sb" id="sidebar" aria-label="Основная навигация">
+    <div class="logo">
+      <span aria-hidden="true">🛡</span>
+      <span class="lb">FiribStop UZ</span>
+    </div>
+    <nav id="nav" role="navigation"></nav>
+    <div class="set">
+      <div class="seg" role="group" aria-label="Язык">
+        <button type="button" id="lang-ru" class="on" onclick="setLang('ru')" aria-pressed="true">RU</button>
+        <button type="button" id="lang-uz" onclick="setLang('uz')" aria-pressed="false">UZ</button>
+      </div>
+      <button type="button" class="ic" id="themeBtn" onclick="toggleTheme()" title="Тема" aria-label="Переключить тему">🌓</button>
+      <button type="button" class="ic" id="colBtn" onclick="toggleCol()" title="Свернуть меню" aria-label="Свернуть меню">☰</button>
+      <button type="button" class="ic" id="bg" onclick="toggleBig()" title="Крупный шрифт" aria-label="Крупный шрифт">A+</button>
+    </div>
+  </aside>
+
+  <div class="ov" id="overlay" onclick="closeSidebar()"></div>
+
+  <div class="mn">
+    <header class="top" role="banner">
+      <button type="button" class="ic" onclick="openSidebar()" aria-label="Открыть меню">☰</button>
+      <strong>FiribStop UZ</strong>
+      <span id="onlineBadge" class="local-pill" aria-live="polite">Онлайн</span>
+    </header>
+
+    <main id="main" role="main">
+      <div id="app" class="view" aria-live="polite"></div>
+    </main>
+  </div>
+
+  <button type="button" class="sos" onclick="go('emer')" title="Экстренные контакты" aria-label="Экстренные контакты">SOS</button>
+
+  <script src="antivirus.js"></script>
+  <script src="radar-dashboard.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

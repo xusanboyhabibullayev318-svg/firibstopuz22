@@ -1,0 +1,36 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = "/api/news"
+  to = "/.netlify/functions/news"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/health"
+  to = "/.netlify/functions/health"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/radar-data"
+  to = "/.netlify/functions/radar-data"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/site-security-events"
+  to = "/.netlify/functions/site-security-events"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/.well-known/assetlinks.json"
+  to = "/.netlify/functions/assetlinks"
+  status = 200
+  force = true
